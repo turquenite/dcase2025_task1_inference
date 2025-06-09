@@ -1,0 +1,37 @@
+Metadata-Version: 2.4
+Name: MALACH_CPJKU_task1
+Version: 0.1.0
+Summary: Baseline Inference package
+Author: Florian Schmid
+Author-email: florian.schmid@jku.at
+Requires-Python: >=3.13
+Requires-Dist: torchinfo
+Requires-Dist: pandas
+Requires-Dist: av
+Requires-Dist: h5py
+Requires-Dist: sox
+Requires-Dist: soundfile
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: torchaudio
+Requires-Dist: tqdm
+Requires-Dist: scikit-learn
+Requires-Dist: numpy
+Requires-Dist: tqdm
+Requires-Dist: matplotlib
+Requires-Dist: python-dotenv
+Requires-Dist: pytorch-lightning
+Requires-Dist: transformers
+Requires-Dist: wandb
+Requires-Dist: timm
+Requires-Dist: hear21passt
+Requires-Dist: einops
+Requires-Dist: nnaudio
+Requires-Dist: pathlib
+Requires-Dist: librosa
+Requires-Dist: easydict
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
