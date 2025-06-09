@@ -9,3 +9,17 @@ torchvision
 torchaudio
 tqdm
 scikit-learn
+numpy
+tqdm
+matplotlib
+python-dotenv
+pytorch-lightning
+transformers
+wandb
+timm
+hear21passt
+einops
+nnaudio
+pathlib
+librosa
+easydict
