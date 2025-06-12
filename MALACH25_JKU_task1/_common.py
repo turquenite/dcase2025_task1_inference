@@ -2,7 +2,7 @@
 DCASE 2025 full fine-tuned baseline model — Modular API for ASC inference.
 """
 
-from typing import Optional, List
+from typing import Optional, List, Tuple, Union
 import torch
 import torchaudio
 import importlib.resources as pkg_resources
@@ -13,9 +13,9 @@ from torch.nn.utils.rnn import pad_sequence
 from collections import defaultdict
 
 # Model and resource imports
-from Schmid_CPJKU_task1.models.net import get_model
-from Schmid_CPJKU_task1.models.multi_device_model import MultiDeviceModelContainer
-from Schmid_CPJKU_task1 import ckpts
+from MALACH25_JKU_task1.models.net import get_model
+from MALACH25_JKU_task1.models.multi_device_model import MultiDeviceModelContainer
+from MALACH25_JKU_task1 import ckpts
 
 
 class Config:
@@ -113,7 +113,10 @@ class Baseline(torch.nn.Module):
         return logits
 
 
-def load_model(model_file_path: Optional[str] = None) -> Baseline:
+def load_model(
+        model_file_path: Optional[str] = None,
+        config: Config = None
+    ) -> Baseline:
     """
     Load the full fine-tuned baseline model from a checkpoint.
 
@@ -123,7 +126,8 @@ def load_model(model_file_path: Optional[str] = None) -> Baseline:
     Returns:
         A Baseline model instance with loaded weights.
     """
-    config = Config()
+    if config is None:
+        config = Config()
     model = Baseline(config)
 
     # Use default checkpoint from package resources if no path is given
@@ -247,10 +251,10 @@ def get_model_for_device(
 def predict(
     file_paths: List[str],
     device_ids: List[str],
-    model_file_path: Optional[str] = None,
+    model_or_path: Union[str, Baseline, None] = None,
     use_cuda: bool = True,
     batch_size: int = 64
-) -> List[torch.Tensor]:
+) -> Tuple[List[torch.Tensor], List[str]]:
     """
     Run inference on a list of audio files using device-specific models.
 
@@ -259,7 +263,7 @@ def predict(
     Args:
         file_paths: List of audio file paths.
         device_ids: List of device IDs corresponding to each file.
-        model_file_path: Optional path to a model checkpoint (.ckpt).
+        model_or_path: Optional path to a model checkpoint (.ckpt) or a loaded model instance.
         use_cuda: Whether to use GPU (if available).
         batch_size: Number of examples per inference batch.
 
@@ -271,7 +275,11 @@ Returns:
     assert len(file_paths) == len(device_ids), "Number of files and device IDs must match."
 
     device = torch.device("cuda" if use_cuda and torch.cuda.is_available() else "cpu")
-    model = load_model(model_file_path).to(device)
+    if isinstance(model_or_path, Baseline):
+        model = model_or_path
+    else:
+        model = load_model(model_or_path)
+    model.to(device)
 
     # Step 1: Preprocess inputs → list of [1, 1, n_mels, T]
     inputs = load_inputs(file_paths, device_ids, model)
