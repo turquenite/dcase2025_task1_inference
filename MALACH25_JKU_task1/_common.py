@@ -137,14 +137,14 @@ def load_model(
 
     # Load checkpoint to CPU (compatible with CPU inference)
     ckpt = torch.load(model_file_path, map_location="cpu")
-
     # Handle Lightning-style checkpoints with nested 'state_dict'
-    if "state_dict" in ckpt:
-        state_dict = {
-            k.replace("multi_device_model.", ""): v
-            for k, v in ckpt["state_dict"].items()
-            if k.startswith("multi_device_model.")
-        }
+    state_dict = ckpt.get('state_dict', ckpt)
+
+    state_dict = {
+        k.replace("multi_device_model.", ""): v
+        for k, v in state_dict.items()
+        if k.startswith("multi_device_model.")
+    }
 
     model.model.load_state_dict(state_dict, strict=True)
     model.model.half()
