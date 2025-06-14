@@ -13,9 +13,9 @@ from torch.nn.utils.rnn import pad_sequence
 from collections import defaultdict
 
 # Model and resource imports
-from MALACH25_JKU_task1.models.net import get_model
-from MALACH25_JKU_task1.models.multi_device_model import MultiDeviceModelContainer
-from MALACH25_JKU_task1 import ckpts
+from Karasin_JKU_task1.models.net import get_model
+from Karasin_JKU_task1.models.multi_device_model import MultiDeviceModelContainer
+from Karasin_JKU_task1 import ckpts
 
 
 class Config:

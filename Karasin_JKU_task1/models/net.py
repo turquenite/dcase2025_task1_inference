@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision.ops.misc import Conv2dNormActivation
 
-from MALACH25_JKU_task1.models.helpers.utils import make_divisible
+from Karasin_JKU_task1.models.helpers.utils import make_divisible
 
 
 def initialize_weights(m):

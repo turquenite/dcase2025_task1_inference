@@ -8,10 +8,10 @@ import importlib.resources as pkg_resources
 import torch
 from torch import Tensor
 
-import MALACH25_JKU_task1._common as _common
-from MALACH25_JKU_task1 import ckpts
+import Karasin_JKU_task1._common as _common
+from Karasin_JKU_task1 import ckpts
 
-DEFAULT_CKPT = "sys3.ckpt"
+DEFAULT_CKPT = "sys1.ckpt"
 
 
 def load_model(model_file_path: Optional[str] = None) -> _common.Baseline:
