@@ -1,11 +1,15 @@
 # DCASE2025 - Task 1 - Inference Package
 
-Contact: **Florian Schmid** (florian.schmid@jku.at), *Johannes Kepler University Linz*
+Contact: **Dominik Karasin** (k12213736@students.jku.at), *Johannes Kepler University Linz*
+
+Team **Karasin_JKU**: Dominik Karasin, Cristian Olariu, Michael Schöpf, Anna Szymańska
+
 
 Official Task Description:  
 🔗 [DCASE Website](https://dcase.community/challenge2025/task-low-complexity-acoustic-scene-classification-with-device-information) 
 📄 [Task Description Paper (arXiv)](https://arxiv.org/pdf/2505.01747) 
 
+This package is based on the [Inference Package baseline repository](https://github.com/CPJKU/dcase2025_task1_inference).
 
 ## Device-Aware Inference for Low-Complexity Acoustic Scene Classification
 
@@ -17,7 +21,7 @@ This repository contains the **inference package** for DCASE 2025 Task 1 and is 
 The package is implemented as an installable Python module and provides a clean API for generating predictions and evaluating model complexity using a pre-trained model.
 
 **Participants of Task 1 are required to submit a link to their inference code package on GitHub.  
-The inference code package must implement the API outlined in this README file.**
+The inference code package must implement the API outlined in this [README file](https://github.com/CPJKU/dcase2025_task1_inference/blob/master/README.md).**
 
 
 ---
@@ -28,8 +32,12 @@ The repository includes the following key components:
 
 ```
 .
-├── Schmid_CPJKU_task1/
-│ ├── Schmid_CPJKU_task1_1.py # Submission Module: Main inference interface, implements API
+├── Karasin_JKU_task1/
+│ ├── _common.py # Inference API implementation 
+│ ├── Karasin_JKU_task1_1.py # Submission Module 1 inference interface
+│ ├── Karasin_JKU_task1_2.py # Submission Module 2 inference interface
+│ ├── Karasin_JKU_task1_3.py # Submission Module 3 inference interface
+│ ├── Karasin_JKU_task1_4.py # Submission Module 4 inference interface
 │ ├── models/ # Model architecture and device container
 │ ├── resources/ # Dummy file and test split CSV
 │ ├── ckpts/ # Model checkpoints
@@ -41,19 +49,13 @@ The repository includes the following key components:
 ```
 
 
-Participants are allowed to submit up to **four inference packages**. This baseline repository includes a single submission module named `Schmid_CPJKU_task1_1`.  
-Additional submissions would be added as:
-
-- `Schmid_CPJKU_task1_2`
-- `Schmid_CPJKU_task1_3`
-- `Schmid_CPJKU_task1_4`
+Participants are allowed to submit up to **four inference packages**.
 
 ---
 
 ## 🧩 Inference API: Required Functions
 
 Each submission module **must implement** the following four functions to ensure compatibility with the official DCASE 2025 evaluation scripts.  
-Example implementations of these functions are implemented for the baseline system in file `Schmid_CPJKU_task1_1.py`.
 
 ---
 
@@ -134,46 +136,64 @@ Return the submodel corresponding to a specific recording device.
 ---
 
 
-## Getting Started
+## Running the inference package
 
-Follow the steps below to prepare and test your DCASE 2025 Task 1 inference submission:
-
-1. Clone this repository:
-
+1. Download the DCASE 2025 Task 1 [development set](https://doi.org/10.5281/zenodo.6337421) and [evaluation set](https://doi.org/10.5281/zenodo.15517945).
+2. Create a Conda environment: `conda create -n d25_t1_inference python=3.13`. Activate your conda environment.
+3. Create a local folder, e.g, `dcase25_task1_eval` and download [evaluate_submission.py](https://raw.githubusercontent.com/CPJKU/dcase2025_task1_inference/refs/heads/master/evaluate_submission.py) to it.
+4. Install the package:
 ```bash
-git clone https://github.com/CPJKU/dcase2025_task1_inference
-cd dcase2025_task1_inference
-```
-
-2. Rename the package (`Schmid_CPJKU_task1`) using your official submission label (see [here](https://dcase.community/challenge2024/submission#submission-label) for informations on how to form your submission label).
-3. Rename the module (`Schmid_CPJKU_task1_1` inside package) using your submission label + the submission index (`1` in the example). You may submit up to four modules with increasing submission index (`1` to `4`).
-4. Create a Conda environment: `conda create -n d25_t1_inference python=3.13`. Activate your conda environment.
-5. Install your package locally `pip install -e .`. Don't forget to adapt the `requirements.txt` file later on if you add additional dependencies.
-6. Implement your submission module(s) by defining the required API functions (see above). 
-7. Verify that your models comply with the complexity limits (MACs, Params):
-
-```python test_complexity.py --submission_name <submission_label> --submission_index <submission_number>```
-
-8. Download the evaluation set (to be released on June 1st). 
-9. Evaluate your submissions on the test split and generate evaluation set predictions:
-```
+pip install git+https://github.com/turquenite/malach25_task1_inference.git
+``` 
+5. Run the evaluation script using the `Karasin_JKU_task1` package:
+```bash
+cd dcase25_task1_eval
 python evaluate_submission.py \
-    --submission_name <submission_label> \
+    --submission_name Karasin_JKU_task1 \
     --submission_index <submission_number> \
     --dev_set_dir /path/to/TAU-2022-development-set/ \
     --eval_set_dir /path/to/TAU-2025-eval-set/
 ```
 
-After successfully running the scripts in steps 8. and 9., a folder `predictions` will be generated inside `dcase2025_task1_inference`:
+A folder `predictions` will be generated inside `dcase25_task1_eval`
+
+---
+
+## Developing the inference package
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/CPJKU/malach25_task1_inference
+cd malach25_task1_inference
+```
+3. Create a Conda environment: `conda create -n d25_t1_inference python=3.13`. Activate your conda environment.
+4. Install the package locally `pip install -e .`. Don't forget to adapt the `requirements.txt` file later on if you add additional dependencies.
+5. Implement the submission module(s) by defining the required API functions (see above). 
+6. Verify that the models comply with the complexity limits (MACs, Params):
+
+```python test_complexity.py --submission_name Karasin_JKU_task1 --submission_index <submission_number>```
+
+7. Download the [evaluation set](https://doi.org/10.5281/zenodo.15517945). 
+8. Evaluate your submissions on the test split and generate evaluation set predictions:
+```
+python evaluate_submission.py \
+    --submission_name Karasin_JKU_task1 \
+    --submission_index <submission_number> \
+    --dev_set_dir /path/to/TAU-2022-development-set/ \
+    --eval_set_dir /path/to/TAU-2025-eval-set/
+```
+
+After successfully running the script in step 8., a folder `predictions` will be generated inside `Karasin_JKU_task1`:
 
 ```
 predictions/
-└── <submission_label>_<submission_index>/
+└── Karasin_JKU_task1_<submission_index>/
     ├── output.csv             # Evaluation set predictions (submit this file)
     ├── model_state_dict.pt    # Model weights (optional, for reproducibility)
     ├── test_accuracy.json     # Test set accuracy (sanity check only)
     └── complexity.json        # MACs and parameter memoyr per device model
-└── <submission_label>_<submission_index>/ # up to four submissions
+└── Karasin_JKU_task1_<submission_index>/ # up to four submissions
 .
 .
 .
