@@ -5,7 +5,7 @@ with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='MALACH25_JKU_task1',
+    name='Karasin_JKU_task1',
     version='0.1.0',
     description='Inference package for DCASE25 Task 1 (based on https://github.com/CPJKU/dcase2025_task1_inference)',
     author='MALACH25 Task1 team',
@@ -14,7 +14,7 @@ setup(
     install_requires=requirements,
     include_package_data=True,
     package_data={
-        'MALACH25_JKU_task1': ["resources/*.wav", 'ckpts/*.ckpt'],
+        'Karasin_JKU_task1': ["resources/*.wav", 'ckpts/*.ckpt'],
     },
     python_requires='>=3.13',
 )
