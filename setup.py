@@ -14,7 +14,7 @@ setup(
     install_requires=requirements,
     include_package_data=True,
     package_data={
-        'Karasin_JKU_task1': ["resources/*.wav", 'ckpts/*.ckpt'],
+        'Karasin_JKU_task1': ["resources/*.csv", "resources/*.wav", 'ckpts/*.ckpt'],
     },
     python_requires='>=3.13',
 )
